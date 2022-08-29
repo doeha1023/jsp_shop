@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+	<!-- security-role : 이 파일에 접근할 수 있는 역할 이름들 모음 -->
+	<security-role>
+		<!-- description : 설명작성 -->
+		<description>role 지정</description>
+		<role-name>admin</role-name>
+	</security-role>
+	
+	<security-constraint>
+		<display-name>WebMarket Security</display-name>
+		<web-resource-collection>
+			<!-- web-resource-name : 보안을 걸어줄 프로젝트명 -->
+			<web-resource-name>shop</web-resource-name>
+			<description></description>
+			<!-- ?? /는 최상위 폴더로 이동인데 shop이 아닌 webapp으로 가는이유 -->
+			<!-- url-pattern : 제약을 걸어줄 파일(이파일 가려면 보안 거쳐야함) -->
+			<url-pattern>/addProduct.jsp</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<description>권한 관리자명</description>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<login-config>
+		<!-- auth-method : FORM - 로그인페이지 / 직접작성 BASIC - 기본로그인페이지사용 -->
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.jsp</form-login-page>
+			<form-error-page>/login_failed.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+	
+	
+
+	 <filter>
+		<filter-name>LogFilter</filter-name>
+		<filter-class>filter.LogFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LogFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- <filter>
+		<filter-name>LogFileFilter</filter-name>
+		<filter-class>filter.LogFileFilter</filter-class>
+		<init-param>filename</init-param>
+		?? 경로지정할때 \\는 뭐고 /는 뭘까 
+		<param-value>c:\\logs\\webmarket.log</param-value>
+	</filter>
+	<filter-mapping>
+		<filter-name>LogFileFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>  -->
+	
+	
+</web-app>
